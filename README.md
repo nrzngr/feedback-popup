@@ -1,4 +1,6 @@
-# Local Setup Guide for Feedback API
+# Local Setup Guide for Feedback Popup Form
+
+## Setting up the Backend Locally
 
 This Section provides a comprehensive guide to setting up and running the Feedback API locally. The API is built with FastAPI, SQLAlchemy, and utilizes an asynchronous database connection for improved performance using PostgreSQL as its database.
 
@@ -130,5 +132,67 @@ DATABASE_URL="postgresql+asyncpg://feedback_user:your_password@localhost:5432/fe
 4. **Access API Documentation:**
    - Once the server is running, you can access the interactive API documentation at `http://127.0.0.1:8000/docs` (or your specified port).
  
-# Local Setup Guide for 
+## Setting Up the Vue 2 Feedback Popup Frontend Locally
+
+This guide outlines the steps to set up the Vue 2 Feedback Popup frontend locally, based on the repository you provided: [https://github.com/nrzngr/feedback-popup/tree/master/frontend](https://github.com/nrzngr/feedback-popup/tree/master/frontend). This guide assumes you already have a backend API set up and running.
+
+### 1. Prerequisites
+
+Make sure you have the following software installed on your system:
+
+- **Node.js and npm:** Download and install from [https://nodejs.org/](https://nodejs.org/). Choose the LTS version for best compatibility.
+- **Git (Optional):** If you prefer to clone the repository instead of downloading it manually, install Git from [https://git-scm.com/](https://git-scm.com/).
+
+### 2. Download the Project
+
+You can either clone the repository or download it as a ZIP file:
+
+**Using Git (Recommended):**
+
+1. Open your terminal or command prompt.
+2. Navigate to the directory where you want to save the project.
+3. Run the following command:
+
+    ```bash
+    git clone https://github.com/nrzngr/feedback-popup.git
+    cd feedback-popup/frontend
+    ```
+
+**Download ZIP:**
+
+1. Go to the repository link: [https://github.com/nrzngr/feedback-popup/tree/master/frontend](https://github.com/nrzngr/feedback-popup/tree/master/frontend)
+2. Click the green "Code" button.
+3. Select "Download ZIP."
+4. Extract the downloaded ZIP file to your desired location.
+5. Navigate to the extracted `frontend` directory using your terminal or command prompt.
+
+### 3. Install Dependencies
+
+1. In your terminal, navigate to the `frontend` directory of the project.
+2. Run the following command to install the project dependencies:
+
+    ```bash
+    npm install
+    ```
+    This will download and install all necessary packages listed in the `package.json` file.
+
+### 4. Running the Application
+
+Once you've installed dependencies, you can run the application using the following command in your terminal:
+
+```bash
+npm run serve
+```
+
+This will start the development server, usually at `http://localhost:8080`. Open this URL in your web browser to see the application running. Make sure your backend API is running and the frontend can communicate with it.
+
+### 5. Building for Production
+
+When you're ready to deploy the application, run the following command:
+
+```bash
+npm run build
+```
+
+This will create a `dist` directory in your project folder. This directory contains a production-ready build of your application, optimized for deployment to a web server.
 
