@@ -10,22 +10,10 @@ from sqlalchemy import (
 
 
 class CRUD:
-    """
-    CRUD (Create, Read, Update, Delete) operations for the Feedback model.
-
-    This class provides methods for interacting with the Feedback table in the database.
-    """
+    """CRUD operations for the Feedback model."""
 
     async def get_all_feedback(self, session: AsyncSession):
-        """
-        Retrieves all feedback entries from the database, ordered by creation timestamp.
-
-        Args:
-            session (AsyncSession): An asynchronous database session.
-
-        Returns:
-            list: A list of Feedback objects representing all feedback entries.
-        """
+        """Retrieves all feedback entries, ordered by creation timestamp."""
         query = select(Feedback).order_by(
             Feedback.created_at
         )  # Create a SELECT query, ordered by creation timestamp
@@ -37,16 +25,7 @@ class CRUD:
         )  # Return all results as a list of Feedback objects
 
     async def add(self, session: AsyncSession, feedback: Feedback):
-        """
-        Adds a new feedback entry to the database.
-
-        Args:
-            session (AsyncSession): An asynchronous database session.
-            feedback (Feedback): The Feedback object to be added.
-
-        Returns:
-            Feedback: The newly added Feedback object, including the assigned ID.
-        """
+        """Adds a new feedback entry to the database."""
         session.add(feedback)  # Add the feedback object to the session
         await session.commit()  # Commit the changes to the database
         await session.refresh(
@@ -55,16 +34,7 @@ class CRUD:
         return feedback
 
     async def get_by_id(self, session: AsyncSession, feedback_id: int):
-        """
-        Retrieves a feedback entry by its ID.
-
-        Args:
-            session (AsyncSession): An asynchronous database session.
-            feedback_id (int): The ID of the feedback entry to retrieve.
-
-        Returns:
-            Feedback: The Feedback object with the specified ID, or None if not found.
-        """
+        """Retrieves a feedback entry by its ID."""
         query = select(Feedback).filter(
             Feedback.id == feedback_id
         )  # Create a SELECT query, filtering by ID
@@ -76,30 +46,18 @@ class CRUD:
         )  # Return the first result (or None if not found)
 
     async def delete_by_id(self, session: AsyncSession, feedback_id: int):
-        """
-        Deletes a feedback entry by its ID.
-
-        Args:
-            session (AsyncSession): An asynchronous database session.
-            feedback_id (int): The ID of the feedback entry to delete.
-        """
+        """Deletes a feedback entry by its ID."""
         query = delete(Feedback).where(
             Feedback.id == feedback_id
         )  # Create a DELETE query, filtering by ID
-        await session.execute(query)  # Execute the query using the provided session
+        # Execute the query using the provided session
+        await session.execute(query)
         await session.commit()  # Commit the changes to the database
 
     async def update_by_id(
         self, session: AsyncSession, feedback_id: int, feedback: Feedback
     ):
-        """
-        Updates a feedback entry by its ID.
-
-        Args:
-            session (AsyncSession): An asynchronous database session.
-            feedback_id (int): The ID of the feedback entry to update.
-            feedback (Feedback): The updated Feedback object.
-        """
+        """Updates a feedback entry by its ID."""
         query = (
             update(Feedback)
             .where(
@@ -111,5 +69,6 @@ class CRUD:
                 satisfaction=feedback.satisfaction,  # Set the new satisfaction value
             )
         )
-        await session.execute(query)  # Execute the query using the provided session
+        # Execute the query using the provided session
+        await session.execute(query)
         await session.commit()  # Commit the changes to the database

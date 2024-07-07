@@ -1,14 +1,19 @@
-FROM python:3.12.3-slim 
-
+FROM python:3.12-slim  
 WORKDIR /app
 
-COPY ./requirements.txt ./
+# Install dependencies
+COPY requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-COPY . .
+# Set environment variables
+ENV DATABASE_URL="postgresql+asyncpg://postgres:082004@34.50.80.190:5432/feedback"
+ENV PYTHONUNBUFFERED=1  
 
-ENV DATABASE_URL=postgresql+asyncpg://postgres:082004@feedbackdb?host=/cloudsql/multitude-assessment:asia-southeast2:feedback-db
+# Copy application code
+COPY . /app
 
+# Expose the port
 EXPOSE 8080
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+# Start the application
+CMD ["gunicorn", "-c", "gunicorn.conf.py", "main:app"]
